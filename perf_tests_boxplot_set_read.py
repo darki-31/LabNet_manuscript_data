@@ -52,7 +52,7 @@ def create_tex_file():
 
     f.write("  \\begin{axis} [\n")
     f.write("    boxplot/draw direction = y,\n")
-    #f.write("    ylabel={latency, ms},\n")
+    f.write("    %ylabel={latency, ms},\n")
     f.write("    ymajorgrids=true,\n")
     f.write("    enlarge y limits,\n")
     f.write("    enlarge x limits=0.05,\n")
@@ -61,7 +61,7 @@ def create_tex_file():
     f.write("    cycle list={{col1},{col2},{col3}},\n")
     f.write("    ymin=0.21,\n")
     f.write("    ymax=2.0,\n")
-    f.write("    width=14cm,\n")
+    f.write("    width=16cm,\n")
     f.write("    height=7cm,\n")
     f.write("    ytick={0,0.5,1,1.5,2},\n")
     f.write("    xtick={0,1,2,...,10},\n")

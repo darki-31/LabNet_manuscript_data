@@ -6,8 +6,8 @@ def create_tex_file():
     # float numbers print format
     ff = "{:.2f}".format
 
-    shutil.copyfile("template.tex", "perf_test_boxplot_id.tex")
-    f = open("perf_test_boxplot_id.tex", "a")
+    shutil.copyfile("template.tex", "perf_tests_boxplot_id.tex")
+    f = open("perf_tests_boxplot_id.tex", "a")
 
     # read all files
     p2n = pd.read_csv('data/python_r2_no_opt.csv', delimiter=';')

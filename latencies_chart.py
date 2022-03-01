@@ -1,0 +1,65 @@
+import numpy as np
+import pandas as pd
+import shutil
+
+def create_tex_file():
+    # float numbers f.write format
+    ff = "{:.2f}".format
+
+    cs4n = pd.read_csv('data/c_sharp_r4_no_opt.csv', delimiter=';')
+
+    mean = str(ff(cs4n["SetAndRead"].mean()))
+    std = str(ff(cs4n["SetAndRead"].std()))
+
+    shutil.copyfile("template.tex", "latencies_chart.tex")
+    f = open("latencies_chart.tex", "a")
+
+    f.write("\\definecolor{color1}{HTML}{A95AA1}\n")
+    f.write("\definecolor{color2}{HTML}{85c0f9}\n")
+    f.write("\n")
+    f.write("\\begin{document}\n")
+    f.write("\\begin{tikzpicture}\n")
+    f.write("    \\pgfplotsset{compat=1.11,\n")
+    f.write("        /pgfplots/xbar legend/.style={\n")
+    f.write("        /pgfplots/legend image code/.code={%\n")
+    f.write("        \draw[##1,/tikz/.cd,yshift=-0.25em]\n")
+    f.write("                (0cm,0cm) rectangle (3pt,0.8em);},\n")
+    f.write("        %\draw[##1,/tikz/.cd,bar width=5pt,yshift=-0.2em,bar shift=0pt]\n")
+    f.write("                %plot coordinates {(0cm,0.8em)};},\n")
+    f.write("        },\n")
+    f.write("    }\n")
+    f.write("\n")
+    f.write("    \\begin{axis}[\n")
+    f.write("        axis x line=bottom,\n")
+    f.write("        axis y line=left,\n")
+    f.write("        compat=newest,\n")
+    f.write("        axis on top,\n")
+    f.write("        %title=Uses lowest $x$ coords for xmin,\n")
+    f.write("        xbar,\n")
+    f.write("        xmin=0,\n")
+    f.write("        width=6.5cm,\n")
+    f.write("        height=4.5cm,\n")
+    f.write("        enlarge y limits=0.15,\n")
+    f.write("        xlabel={latency, ms},\n")
+    f.write("        symbolic y coords={Autopilot,Bpod,pyControl,Whisker,LabNet},\n")
+    f.write("        ytick={Autopilot,Bpod,pyControl,Whisker,LabNet},\n")
+    f.write("        %y tick label style={anchor=west,color=red!50!blue,xshift= \pgfkeysvalueof{/pgfplots/major tick length}},\n")
+    f.write("        bar shift=0pt,\n")
+    f.write("        nodes near coords,\n")
+    f.write("        nodes near coords align=horizontal,\n")
+    f.write("        nodes near coords style={\n")
+    f.write("            anchor=west,\n")
+    f.write("        },\n")
+    f.write("        point meta=explicit symbolic,\n")
+    f.write("        bar width=0.35cm,\n")
+    f.write("        legend style={at={(1.3,0.95)}, anchor=north,legend columns=-1,draw=none},\n")
+    f.write("        ]\n")
+    f.write("        \\addplot[fill=color1, draw=black] coordinates {(1.75,Autopilot) [$1.75\pm{}0.3$] (0.32,Bpod) [$0.32$] (0.556,pyControl) [$0.556\pm{}0.012$]};\n")
+    f.write("\n")
+    f.write("        \\addplot[fill=color2, draw=black] coordinates {(1,Whisker) [1] (" + mean + ",LabNet) [$" + mean + "\pm{}" + std + "$]};\n")
+    f.write("\n")
+    f.write("        \\legend{local,network}\n")
+    f.write("    \\end{axis}\n")
+    f.write("\\end{tikzpicture}\n")
+    f.write("\\end{document}\n")
+    

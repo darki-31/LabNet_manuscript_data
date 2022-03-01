@@ -19,3 +19,6 @@ generate [pgf-tikz](https://github.com/pgf-tikz/pgf) code for the boxplot chart 
 
 **perf_tests_mean_set_read.py**
 generate [pgf-tikz](https://github.com/pgf-tikz/pgf) code for the bar chart of the "set and read test"
+
+**latencies_chart.py**
+generate [pgf-tikz](https://github.com/pgf-tikz/pgf) code for the bar chart for latencies
