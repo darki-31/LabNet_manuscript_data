@@ -4,12 +4,21 @@ import shutil
 
 def create_tex_file():
     # float numbers f.write format
-    ff = "{:.2f}".format
+    ff = "{:.3f}".format
 
-    cs4n = pd.read_csv('data/c_sharp_r4_no_opt.csv', delimiter=';')
+    labnet_data = pd.read_csv('data/read_and_set_test/LabNet/c_sharp_r4_no_opt.csv', delimiter=';')
+    autopilot_data = pd.read_csv('data/read_and_set_test/autopilot/latencies.csv', delimiter=';')
+    bpod_data = pd.read_csv('data/read_and_set_test/bpod/latencies.csv', delimiter=';')
+    pyControl_data = pd.read_csv('data/read_and_set_test/pyControl/latencies.csv', delimiter=';')
 
-    mean = str(ff(cs4n["SetAndRead"].mean()))
-    std = str(ff(cs4n["SetAndRead"].std()))
+    l_mean = str(ff(labnet_data["SetAndRead"].mean()))
+    l_std = str(ff(labnet_data["SetAndRead"].std()))
+    a_mean = str(ff(autopilot_data["SetAndRead"].mean()))
+    a_std = str(ff(autopilot_data["SetAndRead"].std()))
+    b_mean = str(ff(bpod_data["SetAndRead"].mean()))
+    b_std = str(ff(bpod_data["SetAndRead"].std()))
+    p_mean = str(ff(pyControl_data["SetAndRead"].mean()))
+    p_std = str(ff(pyControl_data["SetAndRead"].std()))
 
     shutil.copyfile("template.tex", "latencies_chart.tex")
     f = open("latencies_chart.tex", "a")
@@ -52,11 +61,11 @@ def create_tex_file():
     f.write("        },\n")
     f.write("        point meta=explicit symbolic,\n")
     f.write("        bar width=0.35cm,\n")
-    f.write("        legend style={at={(1.3,0.95)}, anchor=north,legend columns=-1,draw=none},\n")
+    f.write("        legend style={at={(1.7,0.95)}, anchor=north,legend columns=-1,draw=none},\n")
     f.write("        ]\n")
-    f.write("        \\addplot[fill=color1, draw=black] coordinates {(1.75,Autopilot) [$1.75\pm{}0.3$] (0.32,Bpod) [$0.32$] (0.556,pyControl) [$0.556\pm{}0.012$]};\n")
+    f.write("        \\addplot[fill=color1, draw=black] coordinates {(" + a_mean + ",Autopilot) [$" + a_mean + "\pm{}" + a_std + "$] (" + b_mean + ",Bpod) [$" + b_mean + "\pm{}" + b_std + "$] (" + p_mean + ",pyControl) [$" + p_mean + "\pm{}" + p_std + "$]};\n")
     f.write("\n")
-    f.write("        \\addplot[fill=color2, draw=black] coordinates {(1,Whisker) [1] (" + mean + ",LabNet) [$" + mean + "\pm{}" + std + "$]};\n")
+    f.write("        \\addplot[fill=color2, draw=black] coordinates {(1,Whisker) [1] (" + l_mean + ",LabNet) [$" + l_mean + "\pm{}" + l_std + "$]};\n")
     f.write("\n")
     f.write("        \\legend{local,network}\n")
     f.write("    \\end{axis}\n")
