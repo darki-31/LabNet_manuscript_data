@@ -52,7 +52,7 @@ def create_tex_file():
 
     f.write("  \\begin{axis} [\n")
     f.write("    boxplot/draw direction = y,\n")
-    f.write("    %ylabel={latency, ms},\n")
+    f.write("    ylabel={latency, ms},\n")
     f.write("    ymajorgrids=true,\n")
     f.write("    enlarge y limits,\n")
     f.write("    enlarge x limits=0.05,\n")

@@ -1,0 +1,120 @@
+\documentclass[tikz,margin=1mm]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage[default]{opensans}
+\usepackage{stix}
+\usepackage{tikz-3dplot}
+
+\usepackage{pgfplots}
+\usepackage{tikzlings}
+\usepackage{moeptikz}
+\usepgfplotslibrary{statistics}
+\pgfplotsset{compat=1.18}
+
+\usetikzlibrary{positioning,fit,3d,decorations.markings,shapes}
+
+\begin{document}
+
+\definecolor{fgred}{rgb}{0.6,0,0}
+\definecolor{fgblue}{rgb}{0,0,0.6}
+\def\bre{0.75cm}
+\def\brs{0cm}
+\def\bse{-0.5cm}
+\def\bss{-1.25cm}
+\def\b{-1.5cm}
+\def\l{-1.45cm}
+
+\begin{tikzpicture}
+    \tikzset{signal/.style={draw, semithick, line join=round}}
+    \tikzset{line/.style={draw, ultra thin}}
+    
+    \def\bre{0.75cm}
+    \def\brs{0cm}
+    \def\bse{-0.5cm}
+    \def\bss{-1.25cm}
+    \def\b{-1.5cm}
+    \def\l{-1.45cm}
+    
+    \def\tuf{1cm}
+    \def\ruf{1.3cm}
+    \def\rdf{2cm}
+    \def\tdf{2.1cm}
+    
+    \def\tus{3.1cm}
+    \def\rus{3.6cm}
+    \def\rds{4.3cm}
+    \def\tds{4.4cm}
+    \def\tut{5.4cm}
+    \def\rut{5.6cm}
+    \def\rdt{6.3cm}
+    \def\tdt{6.4cm}
+    
+    \path[line] (\ruf,\brs) -- (\ruf,\b);
+    \path[line] (\tuf,\bss) -- (\tuf,\b);
+    \path[line] (\tuf,\l) to node[font=\normalsize, below] {$t_{k-1}$} (\ruf,\l);
+    
+    \path[line] (\rus,\brs) -- (\rus,\b);
+    \path[line] (\tus,\bss) -- (\tus,\b);
+    \path[line] (\tus,\l) to node[font=\normalsize, below] {$t_{k}$} (\rus,\l);
+    
+    \path[line] (\rut,\brs) -- (\rut,\b);
+    \path[line] (\tut,\bss) -- (\tut,\b);
+    \path[line] (\tut,\l) to node[font=\normalsize, below] {$t_{k+1}$} (\rut,\l);
+    
+    \path[signal, fgred] (0cm,\brs) -- (\ruf,\brs) -- (\ruf,\bre) -- (\rdf,\bre) -- (\rdf,\brs)
+        -- (\rus,\brs) -- (\rus,\bre) -- (\rds,\bre) -- (\rds,\brs) -- (\rut,\brs)
+        -- (\rut,\bre) -- (\rdt,\bre) -- (\rdt,\brs) -- (7.1cm,\brs);
+    \path[signal, fgblue] (0cm,\bss) -- (\tuf,\bss) -- (\tuf,\bse) -- (\tdf,\bse)
+         -- (\tdf,\bss) -- (\tus,\bss) -- (\tus,\bse) -- (\tds,\bse) -- (\tds,\bss)
+         -- (\tut,\bss) -- (\tut,\bse) -- (\tdt,\bse) -- (\tdt,\bss) -- (7.1cm,\bss);
+    
+    \node[yshift=0.05cm, xshift=-1.05cm] () at (0cm,\brs) {response};
+    \node[yshift=0.1cm, xshift=-0.6cm] () at (0cm,\bss) {test};
+    
+    \def\bre{-2.25cm}
+    \def\brs{-3cm}
+    \def\bse{-3.5cm}
+    \def\bss{-4.25cm}
+    \def\b{-4.5cm}
+    \def\l{-4.45cm}
+    
+    \def\tuf{1cm}
+    \def\ruf{1.1cm}
+    \def\rdf{1.8cm}
+    \def\tdf{1.9cm}
+    \def\tus{2.9cm}
+    \def\rus{3.0cm}
+    \def\rds{3.7cm}
+    \def\tds{3.8cm}
+    \def\tut{4.8cm}
+    \def\rut{5.2cm}
+    \def\rdt{5.9cm}
+    \def\tdt{6cm}
+    
+    \path[line] (\ruf,\brs) -- (\ruf,\b);
+    \path[line] (\tuf,\bss) -- (\tuf,\b);
+    \path[line] (\tuf,\l) to node[font=\normalsize, below] {$t_{k-1}$} (\ruf,\l);
+    
+    \path[line] (\rus,\brs) -- (\rus,\b);
+    \path[line] (\tus,\bss) -- (\tus,\b);
+    \path[line] (\tus,\l) to node[font=\normalsize, below] {$t_{k}$} (\rus,\l);
+    
+    \path[line] (\rut,\brs) -- (\rut,\b);
+    \path[line] (\tut,\bss) -- (\tut,\b);
+    \path[line] (\tut,\l) to node[font=\normalsize, below] {$t_{k+1}$} (\rut,\l);
+    
+    \path[signal, fgred] (0cm,\brs) -- (\ruf,\brs) -- (\ruf,\bre) -- (\rdf,\bre) -- (\rdf,\brs)
+        -- (\rus,\brs) -- (\rus,\bre) -- (\rds,\bre) -- (\rds,\brs) -- (\rut,\brs)
+        -- (\rut,\bre) -- (\rdt,\bre) -- (\rdt,\brs) -- (7.1cm,\brs);
+    \path[signal, fgblue] (0cm,\bss) -- (\tuf,\bss) -- (\tuf,\bse) -- (\tdf,\bse)
+         -- (\tdf,\bss) -- (\tus,\bss) -- (\tus,\bse) -- (\tds,\bse) -- (\tds,\bss)
+         -- (\tut,\bss) -- (\tut,\bse) -- (\tdt,\bse) -- (\tdt,\bss) -- (7.1cm,\bss);
+        
+    \node[yshift=0.05cm, xshift=-1.05cm] () at (0cm,\brs) {response};
+    \node[yshift=0.1cm, xshift=-0.6cm] () at (0cm,\bss) {test};
+\end{tikzpicture}
+
+
+\end{document}

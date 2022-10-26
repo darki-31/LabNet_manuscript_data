@@ -93,7 +93,7 @@ def create_tex_file():
     f.write("            ybar,\n")
     f.write("            %title=set and read gpio (mean with std dev),\n")
     f.write("            enlarge x limits=0.1,\n")
-    f.write("            %ylabel={latency, ms},\n")
+    f.write("            ylabel={latency, ms},\n")
     f.write("            ymajorgrids=true,\n")
     f.write("            %compat=newest,\n")
     f.write("            major x tick style = transparent,\n")

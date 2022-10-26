@@ -1,0 +1,47 @@
+%\documentclass[varwidth=6in]{standalone}
+\documentclass[margin=0mm]{standalone}
+%\documentclass[margin=0mm]{article}
+\usepackage[default,oldstyle,scale=0.8]{opensans}
+
+\usepackage{floatrow}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+
+\usepackage{caption}
+
+\captionsetup[subfigure]{justification=justified,singlelinecheck=false}
+
+\begin{document}
+
+
+\newfloatcommand{bfigbox}{figure}[\nocapbeside\captop]
+
+\begin{figure}
+    \ffigbox{
+        
+        \begin{subfloatrow}[2]
+            \bfigbox{
+                \includegraphics[scale=0.38]{perf_tests_boxplot_set.pdf}
+            }{\caption{set/ping test}}
+            
+            \bfigbox{
+                \includegraphics[scale=0.38]{perf_tests_boxplot_read_set.pdf}
+            }{\caption{read and set gpio}}
+            
+        \end{subfloatrow}
+
+        \begin{subfloatrow}[2]
+            \bfigbox{
+                \includegraphics[scale=0.38]{stress_test_boxplot_labnet.pdf}
+            }{\caption{stress test}}
+
+            \bfigbox{
+                \includegraphics[scale=0.38]{perf_tests_mean_read_set.pdf}
+            }{\caption{read and set gpio (mean with std dev)}}
+        \end{subfloatrow}
+        
+    }
+    
+\end{figure}
+
+\end{document}

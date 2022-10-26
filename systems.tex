@@ -1,0 +1,180 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[default]{opensans}
+\usepackage{stix}
+
+\usepackage{pgfplots}
+\usepackage{tikzlings}
+\usepackage{moeptikz}
+\usepgfplotslibrary{statistics}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning,fit,3d,decorations.markings,shapes}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \tikzset{backwall/.style={fill=lightgray,fill opacity=0.5,draw=black,thin,line join=round}}
+    \tikzset{wall/.style={fill opacity=0,draw=black,thin,line join=round}}
+
+    \newcommand{\tstar}[5]{% inner radius, outer radius, tips, rot angle, options
+        \pgfmathsetmacro{\starangle}{360/#3}
+        \draw[#5] (#4:#1)
+        \foreach \x in {1,...,#3}
+        { -- (#4+\x*\starangle-\starangle/2:#2) -- (#4+\x*\starangle:#1)
+        }
+        -- cycle;
+    }
+
+    \begin{scope}[x  = {(-0.6cm,-0.5cm)},
+        y  = {(0.9659cm,-0.18cm)},
+        z  = {(0cm,1cm)},
+        scale = 1]
+        %\draw[green] (0,0) -- (1,0) node[above] {x};
+        %\draw[blue] (0,0) -- (0,1)  node[above] {y};
+        %\draw[red] (0,0) -- (0,0,1)  node[above] {z};
+        
+        \begin{scope}[canvas is zy plane at x=0]
+            \path[backwall] (0,0) rectangle (2,4);
+
+            \path[draw=black,fill=black,thin] (0.1,0.8) rectangle (1.9,3.2) node[above, xshift=-30, yshift=8] {d};
+            \begin{scope}[xshift=20, yshift=40,scale=0.1]
+                \tstar{2}{4}{3}{59}{thick,fill=white}
+            \end{scope}
+            \begin{scope}[xshift=22, yshift=70,scale=0.1]
+                \tstar{2}{4}{5}{36}{thick,fill=white}
+            \end{scope}
+        \end{scope}
+
+        \begin{scope}[canvas is zx plane at y=0]
+            \path[backwall] (0,0) rectangle (2,3);
+
+            % ----- leds ------
+            \draw[black,fill=green] (1.0,1.2) circle (0.1);
+            \draw[black,fill=green] (1.0,1.5) circle (0.1) node[left, above] {b};
+            \draw[black,fill=green] (1.0,1.8) circle (0.1);
+
+            % ----- pellet magazine ------
+            \path[fill=white,draw=black,thin] (0.2,1.2) node[right,xshift=-1.4,yshift=4] {a} rectangle (0.6,1.8) ;
+        \end{scope}
+
+        % ---- speaker ----
+        \begin{scope}[canvas is yz plane at x=1.5]
+            \begin{scope}[scale=0.5,yshift=85]
+                \draw[thick,rounded corners=1pt, fill=black] (0,0.25) -- (0,0.45) -- (0.25,0.45) -- (0.5,0.7) node[above] {c} -- (0.5,0) -- (0.25,0.25) -- cycle;
+                \draw[line width=0.5pt,line cap=round] (0.6,0.25) arc (-30:30:2mm);
+                \draw[line width=0.5pt,line cap=round] (0.7,0.15) arc (-30:30:4mm);
+                \draw[line width=0.5pt,line cap=round] (0.8,0.05) arc (-30:30:6mm);
+            \end{scope}
+        \end{scope}
+
+        \begin{scope}[canvas is xy plane at z=0]
+            \path[wall] (0,0) rectangle (3,4);
+
+            \foreach \x in {0.25,0.5,...,4} {
+                \draw[black] (0,\x) -- (3,\x);
+            }
+        \end{scope}
+
+        \begin{scope}[canvas is xy plane at z=2]
+            \path[wall] (0,0) rectangle (3,4);
+        \end{scope}
+
+        \begin{scope}[canvas is zx plane at y=4]
+            \path[wall] (0,0) rectangle (2,3);
+        \end{scope}
+    \end{scope}
+
+    \mouse[scale=0.45, xshift=2.8cm, yshift=-4cm]
+
+    % ---------------------------------------------------------------------------
+    \begin{scope}[xshift=11.0cm]
+        \begin{scope}[x  = {(-0.6cm,-0.5cm)},
+            y  = {(0.9659cm,-0.18cm)},
+            z  = {(0cm,1cm)},
+            scale = 1]
+
+            \begin{scope}[canvas is xz plane at y=0.8]
+                \path[backwall,fill=darkgray] (1.6,0) rectangle (0,-1.5);
+                \node at (0.8,-0.75) {f};
+            \end{scope}
+
+            % ---boden ---
+            \begin{scope}[canvas is xy plane at z=0]
+                \draw[backwall,fill opacity=1] (5,-0.8) -- (5,0.8) -- (1.6,0.8) -- (1.6,4) -- (0,4) -- (0,-4) -- (1.6,-4)-- (1.6,-0.8) -- cycle;
+
+                \path[fill=cyan] (5,-0.8) rectangle (3.5,0.8);
+                \node at (4.25,0) {e};
+            \end{scope}
+
+            % --hintere wand ----
+            \begin{scope}[canvas is zy plane at x=0]
+                \path[backwall] (0,-4) rectangle (1.2,4);
+            \end{scope}
+        \end{scope}
+
+        \mouse[scale=0.45, xshift=4cm, yshift=-2.25cm, body=darkgray, rotatearms=65]
+
+        \begin{scope}[x  = {(-0.6cm,-0.5cm)},
+            y  = {(0.9659cm,-0.18cm)},
+            z  = {(0cm,1cm)},
+            scale = 1]
+    
+            % --- wand am gangende, links -----
+            \begin{scope}[canvas is xz plane at y=-4]
+                \path[backwall] (1.6,0) rectangle (0,1.2);
+    
+                \path[fill=white,draw=black,thin] (0.5,0.2) rectangle (1.1,0.6) node[right,xshift=7.5] {a};
+                \draw[black,fill=green] (0.8,0.85) circle (0.1) node[left, above] {b};
+            \end{scope}
+    
+            % --- wand am gangende, rechts -----
+            \begin{scope}[canvas is xz plane at y=4]
+                \path[backwall] (1.6,0) rectangle (0,1.2);
+    
+                \path[fill=white,draw=black,thin] (0.5,0.2) rectangle (1.1,0.6) node[right,xshift=7.5] {a};
+                \draw[black,fill=green] (0.8,0.85) circle (0.1) node[left, above] {b};
+            \end{scope}
+    
+            % --- vorderwand -----
+            \begin{scope}[canvas is zy plane at x=1.6]
+                \path[backwall] (0,-4) rectangle (1.2,-0.8);
+                \path[wall] (0,4) rectangle (1.2,0.8);
+            \end{scope}
+    
+            % --- linke wand ----
+            \begin{scope}[canvas is xz plane at y=-0.8]
+                \path[backwall,fill=darkgray] (1.6,0) rectangle (0,1.5);
+                \node at (0.8,0.75) {f};
+    
+                \path[backwall] (5,0) rectangle (1.6,1.2);
+            \end{scope}
+    
+            % --- rechte wand ----
+            \begin{scope}[canvas is xz plane at y=0.8]
+                \draw[thin] (1.6,0) -- (0,0);
+                \path[wall] (5,0) rectangle (1.6,1.2);
+            \end{scope}
+    
+            \begin{scope}[canvas is yz plane at x=5]
+                \path[wall] (-0.8,0) rectangle (0.8,1.2);
+            \end{scope}
+        \end{scope}
+    \end{scope}
+
+    \draw[gray] (-2cm,2.2cm) -- (4.2cm,2.2cm) -- (4.2cm,-2.8cm) node[above left,black] (box) {Skinner-Box} -- (-2cm,-2.8cm) -- cycle;% node[above left,black] {Skinner-Box} (box);
+    \path[draw,gray] (5.9cm,2.2cm) rectangle (15.2cm,-2.8cm) node[above left,black] {T-Maze};
+
+    \node[client,label=left:PC] (c) at (5.05cm,-3.7cm) {};
+
+    \draw[gray,thick] (4.2cm,-1.0cm) -- (5.9cm,-1.0cm);
+    \draw[->,>=stealth,thick,gray] (5.05cm,-1.0cm) -- (c);
+
+    %\node[switch] (s) at (5.05cm,-1.5cm) {};
+    
+    %\path[draw] (s) -- (c);
+    
+\end{tikzpicture}
+
+\end{document}

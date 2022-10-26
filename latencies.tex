@@ -1,0 +1,39 @@
+\documentclass[margin=0mm]{standalone}
+%\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[default]{opensans}
+
+\usepackage{floatrow}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+
+\usepackage[font=small]{caption}
+
+\captionsetup[subfigure]{justification=justified,singlelinecheck=false}
+
+\begin{document}
+
+
+\newfloatcommand{bfigbox}{figure}[\nocapbeside\captop]
+
+\begin{figure}
+    \ffigbox{
+        
+        \begin{subfloatrow}[2]
+            \bfigbox{
+                \includegraphics[scale=0.7]{latencies_chart.pdf}
+            }{\caption{latencies}}
+            
+            \bfigbox{
+                \includegraphics[scale=0.55]{read_set_timing.pdf}
+            }{\caption{latency measurement}}
+            
+        \end{subfloatrow}
+        
+    }
+    
+\end{figure}
+
+\end{document}
